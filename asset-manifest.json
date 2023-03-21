@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/zsidoruben/memory-game-react.git/static/css/main.fef24eeb.css",
+    "main.js": "/zsidoruben/memory-game-react.git/static/js/main.0e2ca0db.js",
+    "index.html": "/zsidoruben/memory-game-react.git/index.html",
+    "main.fef24eeb.css.map": "/zsidoruben/memory-game-react.git/static/css/main.fef24eeb.css.map",
+    "main.0e2ca0db.js.map": "/zsidoruben/memory-game-react.git/static/js/main.0e2ca0db.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fef24eeb.css",
+    "static/js/main.0e2ca0db.js"
+  ]
+}
