@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
+import SingleCard from "./components/SingleCard";
 
 const cardImages = [
   { src: "http://localhost:3000/react-gh-pagesgit/img/helmet-1.png" },
@@ -13,9 +15,10 @@ const cardImages = [
 function App() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
+  const [choiceOne, setChoiceOne] = useState(null);
+  const [choiceTwo, setChoiceTwo] = useState(null);
 
   //shuffle
-
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
       .sort(() => Math.random() - 0.5)
@@ -25,23 +28,50 @@ function App() {
     setTurns(0);
   };
 
-  console.log(cards, turns);
+
+  useEffect(() => {
+    //comparison
+    if (choiceOne && choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
+        console.log("Match found: " + choiceOne.src + ", " + choiceTwo.src);
+        resetTurn();
+      } else {
+        console.log("Not a match");
+        resetTurn();
+      }
+    }
+  }, [choiceOne, choiceTwo]);
+
+  const resetTurn = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns(turns + 1);
+  };
+
+  const handleChoice = (card) => {
+    //console.log(card);
+    console.clear();
+    if (choiceOne) {
+      if (card.id !== choiceOne.id) {
+        setChoiceTwo(card);
+      }
+    } else {
+      setChoiceOne(card);
+    }
+  };
 
   return (
     <div className="App">
       <h1>Match</h1>
       <button onClick={shuffleCards}>New Game</button>
       <div className="card-grid">
-        {
-        cards.map(card => (
-          <div className="card" key={card.id}>
-            <div>
-              <img className="front" src={card.src} alt="card front"/>
-              <img className="back" src="http://localhost:3000/react-gh-pagesgit/img/cover.png" alt="card back"/>
-            </div>
-          </div>
-        ))
-        }
+        {cards.map((card) => (
+          <SingleCard
+            key={card.id}
+            card={card}
+            handleChoice={handleChoice}
+          ></SingleCard>
+        ))}
       </div>
     </div>
   );
