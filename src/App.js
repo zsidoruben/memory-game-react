@@ -4,12 +4,12 @@ import "./App.css";
 import SingleCard from "./components/SingleCard";
 
 const cardImages = [
-  { src: "http://localhost:3000/react-gh-pagesgit/img/helmet-1.png" },
-  { src: "http://localhost:3000/react-gh-pagesgit/img/potion-1.png" },
-  { src: "http://localhost:3000/react-gh-pagesgit/img/ring-1.png" },
-  { src: "http://localhost:3000/react-gh-pagesgit/img/scroll-1.png" },
-  { src: "http://localhost:3000/react-gh-pagesgit/img/shield-1.png" },
-  { src: "http://localhost:3000/react-gh-pagesgit/img/sword-1.png" },
+  { src: "http://localhost:3000/react-gh-pagesgit/img/helmet-1.png" , matched: false},
+  { src: "http://localhost:3000/react-gh-pagesgit/img/potion-1.png" , matched: false},
+  { src: "http://localhost:3000/react-gh-pagesgit/img/ring-1.png" , matched: false},
+  { src: "http://localhost:3000/react-gh-pagesgit/img/scroll-1.png" , matched: false},
+  { src: "http://localhost:3000/react-gh-pagesgit/img/shield-1.png" , matched: false},
+  { src: "http://localhost:3000/react-gh-pagesgit/img/sword-1.png" , matched: false},
 ];
 
 function App() {
@@ -33,6 +33,13 @@ function App() {
     //comparison
     if (choiceOne && choiceTwo) {
       if (choiceOne.src === choiceTwo.src) {
+        setCards(prevCards => {
+          return prevCards.map(card => {
+            if (card.src === choiceOne.src) {
+              return {...card}
+            }
+          })
+        });
         console.log("Match found: " + choiceOne.src + ", " + choiceTwo.src);
         resetTurn();
       } else {
@@ -45,12 +52,12 @@ function App() {
   const resetTurn = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
-    setTurns(turns + 1);
+    setTurns(prevTurns => prevTurns + 1);
+    
   };
 
   const handleChoice = (card) => {
-    //console.log(card);
-    console.clear();
+    
     if (choiceOne) {
       if (card.id !== choiceOne.id) {
         setChoiceTwo(card);
